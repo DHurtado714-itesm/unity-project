@@ -40,8 +40,19 @@ public class WebClient : MonoBehaviour
 
     }
 
-
     // Start is called before the first frame update
+
+    private void OnReceivedServerResponse(string jsonResponse)
+    {
+        // Deserializa la respuesta JSON a un objeto de datos de simulación
+        SimulationData simulationData = JsonUtility.FromJson<SimulationData>(jsonResponse);
+
+        // Procesa los datos aquí
+        UpdateAgents(simulationData.agents);
+        UpdateFood(simulationData.food);
+        UpdateDeposit(simulationData.deposit);
+    }
+
     void Start()
     {
         //string call = "What's up?";
@@ -57,4 +68,21 @@ public class WebClient : MonoBehaviour
     {
         
     }
+
+    // Funciones para actualizar agentes, comida, y depósito
+    private void UpdateAgents(AgentData[] agents)
+    {
+        // Actualiza los agentes en la escena
+    }
+
+    private void UpdateFood(int[][] foodPositions)
+    {
+        // Actualiza la comida en la escena
+    }
+
+    private void UpdateDeposit(int[] depositPosition)
+    {
+        // Actualiza la posición del depósito
+    }
+
 }
