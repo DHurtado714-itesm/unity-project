@@ -7,7 +7,7 @@ El reto consiste en desarrollar un sistema multiagente para resolver una tarea c
 - Inicialmente no hay comida en el entorno.
 - La semilla para generación de números aleatorios será 12345.
 - El depósito será generado al azar.
-- Cada 5 segundos se colocará una unidad de comida en algunas celdas.
+- Cada 5 pasos se colocará una unidad de comida en algunas celdas.
 - La cantidad de celdas en las que colocará una unidad comida será definida al azar (entre 2 y 5 celdas).
 - Se colocará un total de 47 unidades de comida.
 - Número total de pasos (steps): 1500.
@@ -23,3 +23,22 @@ Los criterios que se utilizarán para evaluar sus soluciones y seleccionar a los
 Aplicación original, innovadora y efectiva de algoritmos computacionales para resolver problemas específicos.
 El rendimiento de la implementación. El rendimiento de la implementación ejecutable se medirá en función de la cantidad de alimentos que recolecte el sistema multiagente en una cantidad de pasos de simulación.
 La calidad de la descripción de análisis, diseño e implementación del sistema multiagente, la elegancia de su diseño e implementación.
+
+## Acercameinto al problema
+
+### Análisis
+- El problema se puede dividir en dos partes:
+  - Encontrar la comida
+  - Recolectar la comida
+- Se puede dividir en dos tipos de agentes:
+    - Explorador
+    - Recolector
+- Los agentes deben comunicarse entre ellos para poder encontrar la comida y recolectarla.
+- Los agentes deben tener una forma de saber si ya visitaron una celda.
+
+### Bueno saber
+
+- El agente se puede mover en 8 direcciones
+- El agente que encuentra el punto de deposito, se lo comunica a los demas.
+- El agente puede saber si hay comida en una celda si está en ella y pude comunicar cuanto y donde esta la comida a los demás agentes.
+- Se pueden mover en una tracyectoria definida cuando quieran llegar a un punto especifico.
