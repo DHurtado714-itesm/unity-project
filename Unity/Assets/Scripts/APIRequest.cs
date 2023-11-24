@@ -6,9 +6,7 @@ using System;
 using System.Linq;
 
 [System.Serializable]
-public class AgentData;
-public GameObject foodPrefab;
-
+public class AgentData
 {
     public int[] position;
     public int id;
@@ -35,6 +33,9 @@ public class APIRequest : MonoBehaviour
 
     // Prefab del agente para la instanciación
     public GameObject agentPrefab;
+
+    // Prefab de la comida para la instanciación
+    public GameObject foodPrefab;
 
     // Iniciar la corutina al iniciar el juego
     void Start()
@@ -98,14 +99,6 @@ public class APIRequest : MonoBehaviour
             {
                 Debug.LogError("No AgentController found for ID: " + agentId);
             }
-        }
-
-        // Manejar la información de la comida
-        foreach (var foodData in data.food)
-        {
-            Vector2Int foodPosition = new Vector2Int(foodData.position[0], foodData.position[1]);
-            Vector3 position3D = new Vector3(foodPosition.x, 0, foodPosition.y); 
-            Instantiate(foodPrefab, position3D, Quaternion.identity);
         }
     }
 
