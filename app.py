@@ -389,10 +389,40 @@ class FoodModel(Model):
     def get_steps(self):
         return self.steps
 
+    # def update_positions(self):
+    #     # Actualiza la posición de los agentes
+    #     self.agent_positions = [
+    #     {
+    #         "id": agent.unique_id,
+    #         "is_carrying": agent.is_carrying,
+    #         "position": agent.pos,
+    #     } 
+    #     for agent in self.schedule.agents
+    # ]
+    #     # Actualiza la posición de la comida
+    #     self.food_positions = [
+    #         (x, y)
+    #         for x in range(self.grid.width)
+    #         for y in range(self.grid.height)
+    #         if self.food_matrix[x][y] > 0
+    #     ]
+    # Respuesta ---
+    # {
+    # "agents": [
+    #     {
+    #     "id": 0,
+    #     "is_carrying": false,
+    #     "position": [
+    #         1,
+    #         0
+    #     ]
+    #     },
+
     def update_positions(self):
-        # Actualiza la posición de los agentes
+    # Actualiza la posición de los agentes y su estado de is_carrying
         self.agent_positions = [
-            (agent.pos, agent.unique_id) for agent in self.schedule.agents
+            [agent.pos, agent.unique_id, agent.is_carrying] 
+            for agent in self.schedule.agents
         ]
         # Actualiza la posición de la comida
         self.food_positions = [
@@ -401,6 +431,34 @@ class FoodModel(Model):
             for y in range(self.grid.height)
             if self.food_matrix[x][y] > 0
         ]
+    # Respuesta ---
+    # "agents": [
+    # [
+    #   [
+    #     1,
+    #     0
+    #   ],
+    #   0,
+    #   false
+    # ],
+
+        # Respuesta
+        # "food": [
+        # {
+        # "positions": [
+        #     0,
+        #     0
+        # ]
+        # },
+
+        # Actualiza el codigo si quieres la respuesta de esta forma
+
+        # self.food_positions = [
+        #     {"positions": [x, y]}
+        #     for x in range(self.grid.width)
+        #     for y in range(self.grid.height)
+        #     if self.food_matrix[x][y] > 0
+        # ]
 
 
 # %%
