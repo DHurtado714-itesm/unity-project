@@ -11,6 +11,8 @@ public class AgentController : MonoBehaviour
     public GameObject foodPrefab; // Prefab de la comida
     public Transform foodAnchor; // Punto de anclaje para la comida
     private GameObject foodInstance; // Instancia actual de la comida
+    public int id; // Identificador del agente
+
 
     void Update()
     {

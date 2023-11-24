@@ -445,8 +445,12 @@ def get_step_data():
     global current_step
     if current_step < MAX_STEPS and not model.is_complete():
         model.step()
+        agent_data = []
+        for agent_position, agent_id in model.agent_positions:
+            agent_data.append({"id": agent_id, "position": agent_position})
+
         data = {
-            "agents": model.agent_positions,
+            "agents": agent_data,
             "food": model.food_positions,
             "deposit_cell": model.get_deposit_cell(),
         }
@@ -458,3 +462,5 @@ def get_step_data():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# %%
