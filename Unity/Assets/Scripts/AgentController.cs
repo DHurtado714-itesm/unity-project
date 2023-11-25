@@ -4,36 +4,76 @@ using UnityEngine;
 
 public class AgentController : MonoBehaviour
 {
-    // Variables para controlar el movimiento y estado
-    public Vector2Int targetPosition;
-    public bool isCarryingFood = false;
-    public float speed = 5.0f;
+    // Variables de configuración del agente
+    public int id; // Identificador del agente
+    public float speed = 5.0f; // Velocidad de movimiento del agente
     public GameObject foodPrefab; // Prefab de la comida
     public Transform foodAnchor; // Punto de anclaje para la comida
+
+    // Estado y posicionamiento del agente
+    public Vector2Int targetPosition; // Posición objetivo del agente
+    public bool isCarryingFood = false; // Indica si el agente está llevando comida
+
+    // Variables internas
     private GameObject foodInstance; // Instancia actual de la comida
-    public int id; // Identificador del agente
+    private Dictionary<Vector2Int, GameObject> foodInstances; // Referencia al diccionario de instancias de comida
 
-
-    void Update()
+    // Inicialización
+    void Start()
     {
-        Vector3 targetPosition3D = new Vector3(targetPosition.x, 0, targetPosition.y);
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition3D, speed * Time.deltaTime);
-
-        if (isCarryingFood && foodInstance == null)
+        // Obtener la referencia a foodInstances desde el singleton APIRequest
+        if (APIRequest.Instance != null)
         {
-            // Si el agente está llevando comida y no hay una instancia de comida la crea
-            foodInstance = Instantiate(foodPrefab, foodAnchor.position, Quaternion.identity, foodAnchor);
+            foodInstances = APIRequest.Instance.foodInstances;
         }
-        else if (!isCarryingFood && foodInstance != null)
+        else
         {
-            // Si el agente no está llevando comida y hay una instancia de comida, destrúyela
-            Destroy(foodInstance);
+            Debug.LogError("APIRequest.Instance is null in AgentController Start");
         }
     }
 
+    // Actualización en cada frame
+    void Update()
+    {
+        // Mover al agente hacia la posición objetivo
+        Vector3 targetPosition3D = new Vector3(targetPosition.x, 0, targetPosition.y);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition3D, speed * Time.deltaTime);
+
+        // Comprobar si hay comida en la posición actual del agente
+        CheckForFoodAtPosition();
+    }
+
+    // Actualizar el estado del agente desde Python
     public void UpdateStateFromPython(Vector2Int newPosition, bool carryingFood)
     {
         targetPosition = newPosition;
         isCarryingFood = carryingFood;
+    }
+
+    // Comprobar si hay comida en la posición actual del agente
+    void CheckForFoodAtPosition()
+    {
+        if (foodInstances == null)
+        {
+            Debug.LogError("foodInstances is null in AgentController");
+            return;
+        }
+
+        Vector2Int currentPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z));
+
+        if (foodInstances.ContainsKey(currentPos))
+        {
+            GameObject foodAtPosition = foodInstances[currentPos];
+
+            if (isCarryingFood)
+            {
+                Destroy(foodAtPosition);
+                foodInstances.Remove(currentPos);
+            }
+            else
+            {
+                // Lógica cuando el agente encuentra comida pero no la recoge
+            }
+        }
     }
 }

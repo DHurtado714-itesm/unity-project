@@ -96,7 +96,7 @@ Transform:
   m_GameObject: {fileID: 144361351705406955}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99748755, z: -0, w: 0.07084256}
-  m_LocalPosition: {x: 4.6182203, y: 5.012162, z: -20.4512}
+  m_LocalPosition: {x: 4.737, y: 5.012162, z: -20.4512}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -209,8 +209,9 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0}
   isCarryingFood: 0
   speed: 5
-  foodPrefab: {fileID: 262677059768482068, guid: af96033f30ae34f59a6e0208a01b2def, type: 3}
+  foodPrefab: {fileID: 2487483213070169162, guid: 5b49bab6bd0d148a0b1082f76cf53359, type: 3}
   foodAnchor: {fileID: 0}
+  id: 0
 --- !u!1 &166310038294730980
 GameObject:
   m_ObjectHideFlags: 0
