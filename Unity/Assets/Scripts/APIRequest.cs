@@ -29,7 +29,7 @@ public class APIData
 public class APIRequest : MonoBehaviour
 {
     // URL de la API
-    private string apiUrl = "http://127.0.0.1:5000/";
+    private string apiUrl = "http://127.0.0.1:5000";
 
     // Prefabs para instanciación
     public GameObject agentPrefab;
