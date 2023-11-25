@@ -100,10 +100,7 @@ public class APIRequest : MonoBehaviour
         {
             Debug.LogError("Failed to deserialize JSON");
             return;
-        }
-
-    Debug.Log("Deserialized food count: " + (data.food != null ? data.food.Count.ToString() : "null"));
-        
+        }        
 
         if (data.food == null)
         {
