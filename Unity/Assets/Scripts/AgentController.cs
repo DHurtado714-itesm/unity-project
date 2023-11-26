@@ -35,10 +35,17 @@ public class AgentController : MonoBehaviour
    // Actualización en cada frame
    void Update()
    {
-       // Mover al agente hacia la posición objetivo
-       Vector3 targetPosition3D = new Vector3(targetPosition.x, 0.12f, targetPosition.y);
-       transform.position = Vector3.MoveTowards(transform.position, targetPosition3D, speed * Time.deltaTime);
+        // Mover al agente hacia la posición objetivo
+        Vector3 targetPosition3D = new Vector3(targetPosition.x, 0.12f, targetPosition.y);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition3D, speed * Time.deltaTime);
 
+        // Calcular la dirección hacia la posición objetivo
+        if (transform.position != targetPosition3D) // Asegúrate de que haya un movimiento
+        {
+            Vector3 direction = (targetPosition3D - transform.position).normalized; // Calcula la dirección hacia la posición objetivo
+            Quaternion lookRotation = Quaternion.LookRotation(direction); // Crea la rotación hacia la dirección objetivo
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * speed); // Rota el agente hacia esa dirección
+        }
        // Actualizar posición del asset de comida
        if (isCarryingFood && foodInstance != null)
        {
@@ -63,7 +70,7 @@ public class AgentController : MonoBehaviour
         {
             isCarryingFood = true;
             // Calcula la posición inicial para la comida
-            Vector3 initialFoodPosition = transform.position + new Vector3(0, 1.1f, -0.45f);
+            Vector3 initialFoodPosition = transform.position + new Vector3(0, 0.8f, -0.5f);
             // Instancia la comida directamente en la posición correcta
             foodInstance = Instantiate(foodPrefab, initialFoodPosition, Quaternion.identity, transform);
             foodInstance.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
