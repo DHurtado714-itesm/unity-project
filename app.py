@@ -390,17 +390,34 @@ class FoodModel(Model):
         return self.steps
 
     def update_positions(self):
-        # Actualiza la posición de los agentes
-        self.agent_positions = [
-            (agent.pos, agent.unique_id) for agent in self.schedule.agents
-        ]
-        # Actualiza la posición de la comida
-        self.food_positions = [
-            (x, y)
-            for x in range(self.grid.width)
-            for y in range(self.grid.height)
-            if self.food_matrix[x][y] > 0
-        ]
+         # Actualiza la posición de los agentes
+         self.agent_positions = [
+         {
+             "id": agent.unique_id,
+             "is_carrying": agent.is_carrying,
+             "position": agent.pos,
+         } 
+         for agent in self.schedule.agents
+     ]
+         # Actualiza la posición de la comida
+         self.food_positions = [
+             (x, y)
+             for x in range(self.grid.width)
+             for y in range(self.grid.height)
+             if self.food_matrix[x][y] > 0
+         ]
+    # Respuesta ---
+    # {
+    # "agents": [
+    #     {
+    #     "id": 0,
+    #     "is_carrying": false,
+    #     "position": [
+    #         1,
+    #         0
+    #     ]
+    #     },
+
 
 
 # %%
@@ -447,7 +464,7 @@ def get_step_data():
         model.step()
         data = {
             "agents": model.agent_positions,
-            "food": model.food_positions,
+            "food": [{"position": list(pos)} for pos in model.food_positions],  
             "deposit_cell": model.get_deposit_cell(),
         }
         current_step += 1
@@ -458,3 +475,4 @@ def get_step_data():
 
 if __name__ == "__main__":
     app.run(debug=True)
+# %%

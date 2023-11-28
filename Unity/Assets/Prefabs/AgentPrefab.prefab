@@ -96,7 +96,7 @@ Transform:
   m_GameObject: {fileID: 144361351705406955}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99748755, z: -0, w: 0.07084256}
-  m_LocalPosition: {x: 4.6182203, y: 5.012162, z: -20.4512}
+  m_LocalPosition: {x: 4.737, y: 5.012162, z: -20.4512}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -165,9 +165,9 @@ Animator:
   m_GameObject: {fileID: 144361351705406955}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 45d480461bbdc704587e117329ce8e69, type: 3}
-  m_Controller: {fileID: 9100000, guid: 8b9a677f24793ba45bdc27a1dab7745e, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -206,11 +206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e16720d3c8a49dfa296b8a2f98a440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
+  speed: 5
+  foodPrefab: {fileID: 2487483213070169162, guid: 5b49bab6bd0d148a0b1082f76cf53359, type: 3}
+  foodAnchor: {fileID: 0}
   targetPosition: {x: 0, y: 0}
   isCarryingFood: 0
-  speed: 5
-  foodPrefab: {fileID: 262677059768482068, guid: af96033f30ae34f59a6e0208a01b2def, type: 3}
-  foodAnchor: {fileID: 0}
 --- !u!1 &166310038294730980
 GameObject:
   m_ObjectHideFlags: 0
