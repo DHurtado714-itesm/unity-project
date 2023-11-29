@@ -163,6 +163,7 @@ class RobotAgent(Agent):
 
     # Método para moverse aleatoriamente
     def random_move(self):
+        # Obtener las celdas vecinas que están vacías
         possible_moves = [
             cell
             for cell in self.model.grid.get_neighborhood(
@@ -170,9 +171,22 @@ class RobotAgent(Agent):
             )
             if self.model.grid.is_cell_empty(cell)
         ]
+
+        # Filtrar las celdas vecinas para encontrar la menos visitada
         if possible_moves:
-            new_position = random.choice(possible_moves)
+            # Ordenar las posibles celdas por la cantidad de veces que fueron visitadas (de menor a mayor)
+            least_visited_moves = sorted(
+                possible_moves, key=lambda x: self.model.visited_cells[x[0]][x[1]]
+            )
+
+            # Elegir la celda menos visitada
+            new_position = least_visited_moves[0]
+
+            # Mover el agente a la nueva posición
             self.model.grid.move_agent(self, new_position)
+
+            # Incrementar el contador de visitas para la celda recién ocupada
+            self.model.visited_cells[new_position[0]][new_position[1]] += 1
 
     # Method to  pick food from the cell
     def pick_food(self, x, y):
@@ -289,6 +303,7 @@ class FoodModel(Model):
         self.food_positions = []
 
         self.food_matrix[self.deposit_cell[0]][self.deposit_cell[1]] = -1
+        self.visited_cells = np.zeros((GRID_SIZE, GRID_SIZE))
 
     def step(self):
         self.schedule.step()
@@ -390,22 +405,23 @@ class FoodModel(Model):
         return self.steps
 
     def update_positions(self):
-         # Actualiza la posición de los agentes
-         self.agent_positions = [
-         {
-             "id": agent.unique_id,
-             "is_carrying": agent.is_carrying,
-             "position": agent.pos,
-         } 
-         for agent in self.schedule.agents
-     ]
-         # Actualiza la posición de la comida
-         self.food_positions = [
-             (x, y)
-             for x in range(self.grid.width)
-             for y in range(self.grid.height)
-             if self.food_matrix[x][y] > 0
-         ]
+        # Actualiza la posición de los agentes
+        self.agent_positions = [
+            {
+                "id": agent.unique_id,
+                "is_carrying": agent.is_carrying,
+                "position": agent.pos,
+            }
+            for agent in self.schedule.agents
+        ]
+        # Actualiza la posición de la comida
+        self.food_positions = [
+            (x, y)
+            for x in range(self.grid.width)
+            for y in range(self.grid.height)
+            if self.food_matrix[x][y] > 0
+        ]
+
     # Respuesta ---
     # {
     # "agents": [
@@ -417,7 +433,6 @@ class FoodModel(Model):
     #         0
     #     ]
     #     },
-
 
 
 # %%
@@ -464,7 +479,7 @@ def get_step_data():
         model.step()
         data = {
             "agents": model.agent_positions,
-            "food": [{"position": list(pos)} for pos in model.food_positions],  
+            "food": [{"position": list(pos)} for pos in model.food_positions],
             "deposit_cell": model.get_deposit_cell(),
         }
         current_step += 1

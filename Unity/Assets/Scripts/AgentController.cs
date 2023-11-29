@@ -1,3 +1,4 @@
+//AgentController
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,7 +50,7 @@ public class AgentController : MonoBehaviour
        // Actualizar posición del asset de comida
        if (isCarryingFood && foodInstance != null)
        {
-           Vector3 foodPosition = transform.position + new Vector3(0, 1.1f, -0.45f);
+           Vector3 foodPosition = transform.position + new Vector3(0, 2f, -0f);
            foodInstance.transform.position = foodPosition;
        }
 
@@ -73,7 +74,7 @@ public class AgentController : MonoBehaviour
             Vector3 initialFoodPosition = transform.position + new Vector3(0, 0.8f, -0.5f);
             // Instancia la comida directamente en la posición correcta
             foodInstance = Instantiate(foodPrefab, initialFoodPosition, Quaternion.identity, transform);
-            foodInstance.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            foodInstance.transform.localScale = new Vector3(4, 4, 4);
         }
         else if(!carryingFood && isCarryingFood)
         {
@@ -103,8 +104,7 @@ public class AgentController : MonoBehaviour
 
            // Recoger la comida
            foodInstance = Instantiate(foodPrefab, foodAnchor.position, Quaternion.identity, transform);
-           foodInstance.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-
+           foodInstance.transform.localScale = new Vector3(4, 4, 4);
            Destroy(foodAtPosition);
            foodInstances.Remove(currentPos);
 

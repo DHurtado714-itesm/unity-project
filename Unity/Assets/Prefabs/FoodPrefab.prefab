@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4764922690806255915}
   - component: {fileID: -8627047919286994523}
   m_Layer: 0
-  m_Name: foodPrefab
+  m_Name: FoodPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,6 +258,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4764922690806255915}
     m_Modifications:
+    - target: {fileID: 516139943512138370, guid: 2f2a86f8970df4d909577800b9498c0b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5aff9518cc58f4470bfbbb751c0abb14, type: 2}
     - target: {fileID: 776628148925073949, guid: 2f2a86f8970df4d909577800b9498c0b, type: 3}
       propertyPath: m_RootOrder
       value: 4

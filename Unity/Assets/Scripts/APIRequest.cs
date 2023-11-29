@@ -85,7 +85,7 @@ public class APIRequest : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -157,7 +157,7 @@ public class APIRequest : MonoBehaviour
     // Instanciar y registrar un agente
     AgentController InstantiateAndRegisterAgent(int id, Vector2Int position)
     {
-        Vector3 position3D = new Vector3(position.x, 0, position.y);
+        Vector3 position3D = new Vector3(position.x, 3, position.y);
         GameObject agentObject = Instantiate(agentPrefab, position3D, Quaternion.identity);
         AgentController agentController = agentObject.GetComponent<AgentController>();
         agentController.id = id;
